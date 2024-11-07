@@ -4,6 +4,9 @@
  */
 package frontend;
 
+import backend.Circle;
+import java.awt.Dimension;
+
 /**
  *
  * @author Zaki
@@ -15,6 +18,11 @@ public class AppFrontend extends javax.swing.JFrame {
      */
     public AppFrontend() {
         initComponents();
+        
+        this.setVisible(true);
+        this.setTitle("MiniPaint");
+        this.setLocationRelativeTo(null);
+        this.setPreferredSize(new Dimension (1000, 1000));
     }
 
     /**
@@ -26,21 +34,151 @@ public class AppFrontend extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        selectShapeLabel = new javax.swing.JLabel();
+        selectShapeDropdown = new javax.swing.JComboBox<>();
+        colorizeButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
+        circleButton = new javax.swing.JButton();
+        lineSegmentButton = new javax.swing.JButton();
+        rectangleButton = new javax.swing.JButton();
+        squareButton = new javax.swing.JButton();
+        canvas = new java.awt.Canvas();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        selectShapeLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        selectShapeLabel.setText("Select Shape:");
+
+        selectShapeDropdown.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        selectShapeDropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        colorizeButton.setText("Colorize");
+        colorizeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                colorizeButtonMouseClicked(evt);
+            }
+        });
+
+        deleteButton.setText("Delete");
+        deleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteButtonMouseClicked(evt);
+            }
+        });
+
+        circleButton.setText("Circle");
+        circleButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                circleButtonMouseClicked(evt);
+            }
+        });
+
+        lineSegmentButton.setText("Line Segment");
+        lineSegmentButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lineSegmentButtonMouseClicked(evt);
+            }
+        });
+
+        rectangleButton.setText("Rectangle");
+        rectangleButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                rectangleButtonMouseClicked(evt);
+            }
+        });
+
+        squareButton.setText("Square");
+        squareButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                squareButtonMouseClicked(evt);
+            }
+        });
+
+        canvas.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(selectShapeLabel)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(selectShapeDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(colorizeButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(deleteButton))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(circleButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(lineSegmentButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(rectangleButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(squareButton)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(canvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lineSegmentButton)
+                    .addComponent(rectangleButton)
+                    .addComponent(squareButton)
+                    .addComponent(circleButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(canvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(selectShapeLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(colorizeButton)
+                    .addComponent(deleteButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(selectShapeDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void colorizeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colorizeButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_colorizeButtonMouseClicked
+
+    private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteButtonMouseClicked
+
+    private void circleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circleButtonMouseClicked
+        // TODO add your handling code here:
+        Circle c = new Circle();
+        c.setPosition(500, 500);
+        c.draw(this.canvas);
+    }//GEN-LAST:event_circleButtonMouseClicked
+
+    private void lineSegmentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lineSegmentButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lineSegmentButtonMouseClicked
+
+    private void rectangleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rectangleButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rectangleButtonMouseClicked
+
+    private void squareButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_squareButtonMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_squareButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -78,5 +216,14 @@ public class AppFrontend extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Canvas canvas;
+    private javax.swing.JButton circleButton;
+    private javax.swing.JButton colorizeButton;
+    private javax.swing.JButton deleteButton;
+    private javax.swing.JButton lineSegmentButton;
+    private javax.swing.JButton rectangleButton;
+    private javax.swing.JComboBox<String> selectShapeDropdown;
+    private javax.swing.JLabel selectShapeLabel;
+    private javax.swing.JButton squareButton;
     // End of variables declaration//GEN-END:variables
 }

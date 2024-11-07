@@ -35,11 +35,11 @@ public class Point {
         this.y = y;
     }
     
-    public double getX () {
-        return this.x;
+    public int getX () {
+        return (int)this.x;
     }
     
-    public double getY () {
-        return this.y;
+    public int getY () {
+        return (int)this.y;
     }
 }
