@@ -165,7 +165,7 @@ public class AppFrontend extends javax.swing.JFrame {
         // TODO add your handling code here:
         Circle c = new Circle();
         c.setPosition(500, 500);
-        c.draw(this.canvas);
+        c.draw(this.canvas.getGraphics());
     }//GEN-LAST:event_circleButtonMouseClicked
 
     private void lineSegmentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lineSegmentButtonMouseClicked

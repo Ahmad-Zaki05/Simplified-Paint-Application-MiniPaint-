@@ -5,7 +5,6 @@
 package backend;
 
 import java.awt.*;
-import javax.swing.*;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,10 +21,10 @@ public class Circle implements Shape {
 
     public Circle() {
         this.position = new Point();
-        this.radius = 0;
+        this.radius = 100;
         this.properties = new HashMap<>();
         this.color = Color.BLACK;
-        this.fillColor = Color.WHITE;
+        this.fillColor = Color.BLACK;
     }
     
     @Override
