@@ -16,7 +16,11 @@ public class Rectangle extends AbstractShape {
         this.getProperties().put("Width", 0.0);
     }
     
+    @Override
     public void draw (java.awt.Graphics canvas) {
+        canvas.setColor(this.getFillColor());
+        canvas.fillRect(this.getPosition().getX(), this.getPosition().getY(), this.getProperties().get("Length").intValue(), this.getProperties().get("Width").intValue());
+        canvas.setColor(this.getColor());
         canvas.drawRect(this.getPosition().getX(), this.getPosition().getY(), this.getProperties().get("Length").intValue(), this.getProperties().get("Width").intValue());
     }
 }
