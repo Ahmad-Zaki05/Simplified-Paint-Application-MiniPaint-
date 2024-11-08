@@ -23,5 +23,8 @@ public interface Shape {
     public void setFillColor (Color color);
     public Color getFillColor ();
     
+    public void setName (String name);
+    public String getName ();
+    
     public void draw (java.awt.Graphics canvas);
 }

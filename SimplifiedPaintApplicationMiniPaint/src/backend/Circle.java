@@ -4,77 +4,25 @@
  */
 package backend;
 
-import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-
 /**
  *
  * @author Zaki
  */
-public class Circle implements Shape {
-    private Point position;
-    private double radius;
-    private Map <String, Double> properties;
-    private Color color;
-    private Color fillColor;
+public class Circle extends AbstractShape{
+    
+    public Circle () {
+        super();
+        this.getProperties().put("Radius", 0.0);
+    }
 
-    public Circle() {
-        this.position = new Point();
-        this.radius = 100;
-        this.properties = new HashMap<>();
-        this.color = Color.BLACK;
-        this.fillColor = Color.BLACK;
-    }
-    
-    @Override
-    public void setPosition (Point position) {
-        this.position = position;
-    }
-    
-    public void setPosition (double x, double y) {
-        setPosition(new Point (x, y));
-    }
-    
-    @Override
-    public Point getPosition () {
-        return this.position;
-    }
-    
-    @Override
-    public void setProperties (Map <String, Double> properties) {
-        this.properties = properties;
-    }
-    @Override
-    public Map <String, Double> getProperties () {
-        return this.properties;
-    }
-    
-    @Override
-    public void setColor (Color color) {
-        this.color = color;
-    }
-    @Override
-    public Color getColor () {
-        return this.color;
-    }
-    @Override
-    public void setFillColor (Color fillColor) {
-        this.fillColor = fillColor;
-    }
-    @Override
-    public Color getFillColor () {
-        return this.fillColor;
-    }
-    
     @Override
     public void draw (java.awt.Graphics canvas) {
 //        super.paintComponent (canvas);
         canvas.setColor(this.getFillColor());
-        canvas.fillOval(this.getPosition().getX(), this.getPosition().getY(), (int)this.radius, (int)this.radius);
+        canvas.fillOval(this.getPosition().getX(), this.getPosition().getY(),  this.getProperties().get("Radius").intValue(), this.getProperties().get("Radius").intValue());
 //        canvas.fillOval(getPosition().getX(), getPosition().getX(), getProperties().get("radius").intValue(), getProperties().get("radius").intValue());
         canvas.setColor(getColor());
-        canvas.drawOval(this.getPosition().getX(), this.getPosition().getY(), (int)this.radius, (int)this.radius);
+        canvas.drawOval(this.getPosition().getX(), this.getPosition().getY(), this.getProperties().get("Radius").intValue(), this.getProperties().get("Radius").intValue());
 //        canvas.drawOval(getPosition().getX(), getPosition().getX(), getProperties().get("radius").intValue(), getProperties().get("radius").intValue());
     }
     
