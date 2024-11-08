@@ -19,10 +19,10 @@ public class Circle extends AbstractShape{
     public void draw (java.awt.Graphics canvas) {
 //        super.paintComponent (canvas);
         canvas.setColor(this.getFillColor());
-        canvas.fillOval(this.getPosition().getX(), this.getPosition().getY(),  this.getProperties().get("Radius").intValue(), this.getProperties().get("Radius").intValue());
+        canvas.fillOval(this.getPosition().getX(), this.getPosition().getY(),  this.getProperties().get("Radius").intValue() * 2, this.getProperties().get("Radius").intValue() * 2);
 //        canvas.fillOval(getPosition().getX(), getPosition().getX(), getProperties().get("radius").intValue(), getProperties().get("radius").intValue());
         canvas.setColor(getColor());
-        canvas.drawOval(this.getPosition().getX(), this.getPosition().getY(), this.getProperties().get("Radius").intValue(), this.getProperties().get("Radius").intValue());
+        canvas.drawOval(this.getPosition().getX(), this.getPosition().getY(), this.getProperties().get("Radius").intValue() * 2, this.getProperties().get("Radius").intValue() * 2);
 //        canvas.drawOval(getPosition().getX(), getPosition().getX(), getProperties().get("radius").intValue(), getProperties().get("radius").intValue());
     }
     

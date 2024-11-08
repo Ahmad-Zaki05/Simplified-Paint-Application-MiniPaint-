@@ -5,7 +5,12 @@
 package frontend;
 
 import backend.Circle;
+import backend.DrawingEngine;
+import backend.MiniPaintEngine;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Frame;
+import javax.swing.JDialog;
 
 /**
  *
@@ -16,13 +21,17 @@ public class AppFrontend extends javax.swing.JFrame {
     /**
      * Creates new form AppFrontend
      */
+    
+    DrawingEngine engine;
+    
     public AppFrontend() {
         initComponents();
         
         this.setVisible(true);
         this.setTitle("MiniPaint");
+        this.setSize(new Dimension (1200, 700));
         this.setLocationRelativeTo(null);
-        this.setPreferredSize(new Dimension (1000, 1000));
+        this.engine = new MiniPaintEngine();
     }
 
     /**
@@ -162,10 +171,7 @@ public class AppFrontend extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonMouseClicked
 
     private void circleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circleButtonMouseClicked
-        // TODO add your handling code here:
-        Circle c = new Circle();
-        c.setPosition(500, 500);
-        c.draw(this.canvas.getGraphics());
+        
     }//GEN-LAST:event_circleButtonMouseClicked
 
     private void lineSegmentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lineSegmentButtonMouseClicked
