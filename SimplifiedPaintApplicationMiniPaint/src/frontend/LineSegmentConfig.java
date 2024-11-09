@@ -8,6 +8,7 @@ import backend.DrawingEngine;
 import backend.LineSegment;
 import java.awt.Color;
 import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -22,13 +23,15 @@ public class LineSegmentConfig extends javax.swing.JFrame {
     DrawingEngine engine;
     java.awt.Graphics canvas;
     LineSegment lineSegment;
+    JComboBox <String> comboBox;
     
-    public LineSegmentConfig(DrawingEngine engine, java.awt.Graphics canvas) {
+    public LineSegmentConfig(DrawingEngine engine, java.awt.Graphics canvas, JComboBox <String> comboBox) {
         initComponents();
         
         this.engine = engine;
         this.canvas = canvas;
         this.lineSegment = new LineSegment();
+        this.comboBox = comboBox;
         
         this.setVisible(true);
         this.setTitle("Line Segment Configuration");
@@ -204,7 +207,8 @@ public class LineSegmentConfig extends javax.swing.JFrame {
         this.lineSegment.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
         this.lineSegment.getProperties().put("Length", Double.parseDouble(this.lengthField.getText()));
         this.lineSegment.getProperties().put("Angle", Double.parseDouble(this.angleField.getText()));
-        this.lineSegment.setName("Line" + (this.engine.getShapes().length + 1));
+        this.lineSegment.setName("Line " + (this.engine.getShapes().length + 1));
+        this.comboBox.addItem(this.lineSegment.getName());
         this.engine.addShape(this.lineSegment);
         this.engine.refresh(this.canvas);
         this.dispose();

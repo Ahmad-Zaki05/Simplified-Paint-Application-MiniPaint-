@@ -6,8 +6,11 @@ package frontend;
 
 import backend.Circle;
 import backend.DrawingEngine;
+import backend.MiniPaintEngine;
 import java.awt.Color;
+import java.awt.Graphics;
 import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -22,8 +25,10 @@ public class CircleConfig extends javax.swing.JFrame {
     DrawingEngine engine;
     java.awt.Graphics canvas;
     Circle circle;
+    JComboBox <String> comboBox;
+   
     
-    public CircleConfig(DrawingEngine engine, java.awt.Graphics canvas) {
+    public CircleConfig(DrawingEngine engine, java.awt.Graphics canvas, JComboBox <String> comboBox) {
         initComponents();
         
         this.setVisible(true);
@@ -33,6 +38,7 @@ public class CircleConfig extends javax.swing.JFrame {
         this.engine = engine;
         this.canvas = canvas;
         this.circle = new Circle();
+        this.comboBox = comboBox;
         
         this.xCoordinateField.setText("" + this.circle.getPosition().getX());
         this.yCoordinateField.setText("" + this.circle.getPosition().getX());
@@ -224,7 +230,8 @@ public class CircleConfig extends javax.swing.JFrame {
         this.circle.setFillColor(this.fillColorPanel.getBackground());
         this.circle.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
         this.circle.getProperties().put("Radius", Double.parseDouble(this.radiusField.getText()));
-        this.circle.setName("Circle" + (this.engine.getShapes().length + 1));
+        this.circle.setName("Circle " + (this.engine.getShapes().length + 1));
+        this.comboBox.addItem(this.circle.getName());
         this.engine.addShape(this.circle);
         this.engine.refresh(this.canvas);
         this.dispose();

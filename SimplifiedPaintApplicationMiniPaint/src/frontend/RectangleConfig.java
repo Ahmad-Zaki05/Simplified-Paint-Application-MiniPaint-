@@ -8,6 +8,7 @@ import backend.DrawingEngine;
 import backend.Rectangle;
 import java.awt.Color;
 import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -22,13 +23,15 @@ public class RectangleConfig extends javax.swing.JFrame {
     DrawingEngine engine;
     java.awt.Graphics canvas;
     Rectangle rectangle;
+    JComboBox <String> comboBox;
     
-    public RectangleConfig(DrawingEngine engine, java.awt.Graphics canvas) {
+    public RectangleConfig(DrawingEngine engine, java.awt.Graphics canvas, JComboBox <String> comboBox) {
         initComponents();
         
         this.engine = engine;
         this.canvas = canvas;
         this.rectangle = new Rectangle();
+        this.comboBox = comboBox;
         
         this.setVisible(true);
         this.setTitle("Rectangle Configuration");
@@ -246,7 +249,8 @@ public class RectangleConfig extends javax.swing.JFrame {
         this.rectangle.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
         this.rectangle.getProperties().put("Length", Double.parseDouble(this.lengthField.getText()));
         this.rectangle.getProperties().put("Width", Double.parseDouble(this.widthField.getText()));
-        this.rectangle.setName("Rectangle" + (this.engine.getShapes().length + 1));
+        this.rectangle.setName("Rectangle " + (this.engine.getShapes().length + 1));
+        this.comboBox.addItem(this.rectangle.getName());
         this.engine.addShape(this.rectangle);
         this.engine.refresh(this.canvas);
         this.dispose();

@@ -8,6 +8,7 @@ import backend.DrawingEngine;
 import backend.Square;
 import java.awt.Color;
 import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 
 /**
  *
@@ -22,13 +23,15 @@ public class SquareConfig extends javax.swing.JFrame {
     DrawingEngine engine;
     java.awt.Graphics canvas;
     Square square;
+    JComboBox <String> comboBox;
     
-    public SquareConfig(DrawingEngine engine, java.awt.Graphics canvas) {
+    public SquareConfig(DrawingEngine engine, java.awt.Graphics canvas, JComboBox <String> comboBox) {
         initComponents();
         
         this.engine = engine;
         this.canvas = canvas;
         this.square = new Square();
+        this.comboBox = comboBox;
         
         this.setVisible(true);
         this.setTitle("Square Configuration");
@@ -229,7 +232,8 @@ public class SquareConfig extends javax.swing.JFrame {
         this.square.setColor(this.borderColorPanel.getBackground());
         this.square.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
         this.square.getProperties().put("Length", Double.parseDouble(this.lengthField.getText()));
-        this.square.setName("Square" + (this.engine.getShapes().length + 1));
+        this.square.setName("Square " + (this.engine.getShapes().length + 1));
+        this.comboBox.addItem(this.square.getName());
         this.engine.addShape(this.square);
         this.engine.refresh(this.canvas);
         this.dispose();

@@ -4,13 +4,10 @@
  */
 package frontend;
 
-import backend.Circle;
 import backend.DrawingEngine;
 import backend.MiniPaintEngine;
-import java.awt.Color;
+import backend.Shape;
 import java.awt.Dimension;
-import java.awt.Frame;
-import javax.swing.JDialog;
 
 /**
  *
@@ -32,6 +29,9 @@ public class AppFrontend extends javax.swing.JFrame {
         this.setSize(new Dimension (1200, 700));
         this.setLocationRelativeTo(null);
         this.engine = new MiniPaintEngine();
+        
+        this.selectShapeComboBox.removeAllItems();
+        this.selectShapeComboBox.addItem("Choose the shape");
     }
 
     /**
@@ -44,7 +44,7 @@ public class AppFrontend extends javax.swing.JFrame {
     private void initComponents() {
 
         selectShapeLabel = new javax.swing.JLabel();
-        selectShapeDropdown = new javax.swing.JComboBox<>();
+        selectShapeComboBox = new javax.swing.JComboBox<>();
         colorizeButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         circleButton = new javax.swing.JButton();
@@ -58,8 +58,9 @@ public class AppFrontend extends javax.swing.JFrame {
         selectShapeLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         selectShapeLabel.setText("Select Shape:");
 
-        selectShapeDropdown.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        selectShapeDropdown.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectShapeComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        selectShapeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectShapeComboBox.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         colorizeButton.setText("Colorize");
         colorizeButton.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -114,7 +115,7 @@ public class AppFrontend extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(selectShapeLabel)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(selectShapeDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(selectShapeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(colorizeButton)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -155,7 +156,7 @@ public class AppFrontend extends javax.swing.JFrame {
                     .addComponent(colorizeButton)
                     .addComponent(deleteButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(selectShapeDropdown, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(selectShapeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -163,27 +164,48 @@ public class AppFrontend extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void colorizeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colorizeButtonMouseClicked
-        // TODO add your handling code here:
+        String selectedShapeName = this.selectShapeComboBox.getItemAt(this.selectShapeComboBox.getSelectedIndex());
+        Shape [] shapes = this.engine.getShapes();
+        Shape selectedShape = null;
+        for (Shape shape : shapes) {
+            if (selectedShapeName.equals(shape.getName())) {
+                selectedShape = shape;
+            }
+        }
+        
     }//GEN-LAST:event_colorizeButtonMouseClicked
 
     private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
-        // TODO add your handling code here:
+        String selectedShapeName = this.selectShapeComboBox.getItemAt(this.selectShapeComboBox.getSelectedIndex());
+        if (!selectedShapeName.equals("Choose the shape")) {
+            Shape [] shapes = this.engine.getShapes();
+            Shape selectedShape = null;
+            for (Shape shape : shapes) {
+                if (selectedShapeName.equals(shape.getName())) {
+                    selectedShape = shape;
+                }
+            }
+            this.engine.removeShape(selectedShape);
+            this.selectShapeComboBox.removeItem(selectedShapeName);
+            canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+            this.engine.refresh(canvas.getGraphics());
+        }
     }//GEN-LAST:event_deleteButtonMouseClicked
 
     private void circleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circleButtonMouseClicked
-        new CircleConfig(engine, canvas.getGraphics());
+        new CircleConfig(this.engine, this.canvas.getGraphics(), this.selectShapeComboBox);
     }//GEN-LAST:event_circleButtonMouseClicked
 
     private void lineSegmentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lineSegmentButtonMouseClicked
-        new LineSegmentConfig (engine, canvas.getGraphics());
+        new LineSegmentConfig(this.engine, this.canvas.getGraphics(), this.selectShapeComboBox);
     }//GEN-LAST:event_lineSegmentButtonMouseClicked
 
     private void rectangleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rectangleButtonMouseClicked
-        new RectangleConfig(engine, canvas.getGraphics());
+        new RectangleConfig(this.engine, this.canvas.getGraphics(), this.selectShapeComboBox);
     }//GEN-LAST:event_rectangleButtonMouseClicked
 
     private void squareButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_squareButtonMouseClicked
-        new SquareConfig(engine, canvas.getGraphics());
+        new SquareConfig(this.engine, this.canvas.getGraphics(), this.selectShapeComboBox);
     }//GEN-LAST:event_squareButtonMouseClicked
 
     /**
@@ -228,7 +250,7 @@ public class AppFrontend extends javax.swing.JFrame {
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton lineSegmentButton;
     private javax.swing.JButton rectangleButton;
-    private javax.swing.JComboBox<String> selectShapeDropdown;
+    private javax.swing.JComboBox<String> selectShapeComboBox;
     private javax.swing.JLabel selectShapeLabel;
     private javax.swing.JButton squareButton;
     // End of variables declaration//GEN-END:variables
