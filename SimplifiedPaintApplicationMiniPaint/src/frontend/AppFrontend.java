@@ -171,19 +171,19 @@ public class AppFrontend extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonMouseClicked
 
     private void circleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circleButtonMouseClicked
-        
+        new CircleConfig(engine, canvas.getGraphics());
     }//GEN-LAST:event_circleButtonMouseClicked
 
     private void lineSegmentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lineSegmentButtonMouseClicked
-        // TODO add your handling code here:
+        new LineSegmentConfig (engine, canvas.getGraphics());
     }//GEN-LAST:event_lineSegmentButtonMouseClicked
 
     private void rectangleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rectangleButtonMouseClicked
-        // TODO add your handling code here:
+        new RectangleConfig(engine, canvas.getGraphics());
     }//GEN-LAST:event_rectangleButtonMouseClicked
 
     private void squareButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_squareButtonMouseClicked
-        // TODO add your handling code here:
+        new SquareConfig(engine, canvas.getGraphics());
     }//GEN-LAST:event_squareButtonMouseClicked
 
     /**
