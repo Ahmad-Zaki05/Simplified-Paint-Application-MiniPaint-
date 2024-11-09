@@ -21,11 +21,11 @@ public class LineSegmentConfig extends javax.swing.JFrame {
      */
     
     DrawingEngine engine;
-    java.awt.Graphics canvas;
+    java.awt.Canvas canvas;
     LineSegment lineSegment;
     JComboBox <String> comboBox;
     
-    public LineSegmentConfig(DrawingEngine engine, java.awt.Graphics canvas, JComboBox <String> comboBox) {
+    public LineSegmentConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
         initComponents();
         
         this.engine = engine;
@@ -38,7 +38,26 @@ public class LineSegmentConfig extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         this.xCoordinateField.setText("" + this.lineSegment.getPosition().getX());
-        this.yCoordinateField.setText("" + this.lineSegment.getPosition().getX());
+        this.yCoordinateField.setText("" + this.lineSegment.getPosition().getY());
+        this.lengthField.setText("" + this.lineSegment.getProperties().get("Length"));
+        this.angleField.setText("" + this.lineSegment.getProperties().get("Angle"));
+        this.fillColorPanel.setBackground(this.lineSegment.getFillColor());
+    }
+    
+    public LineSegmentConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox, LineSegment lineSegment) {
+        initComponents();
+        
+        this.engine = engine;
+        this.canvas = canvas;
+        this.lineSegment = lineSegment;
+        this.comboBox = comboBox;
+        
+        this.setVisible(true);
+        this.setTitle("Line Segment Configuration");
+        this.setLocationRelativeTo(null);
+        
+        this.xCoordinateField.setText("" + this.lineSegment.getPosition().getX());
+        this.yCoordinateField.setText("" + this.lineSegment.getPosition().getY());
         this.lengthField.setText("" + this.lineSegment.getProperties().get("Length"));
         this.angleField.setText("" + this.lineSegment.getProperties().get("Angle"));
         this.fillColorPanel.setBackground(this.lineSegment.getFillColor());
@@ -210,7 +229,8 @@ public class LineSegmentConfig extends javax.swing.JFrame {
         this.lineSegment.setName("Line " + (this.engine.getShapes().length + 1));
         this.comboBox.addItem(this.lineSegment.getName());
         this.engine.addShape(this.lineSegment);
-        this.engine.refresh(this.canvas);
+        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        this.engine.refresh(this.canvas.getGraphics());
         this.dispose();
     }//GEN-LAST:event_saveButtonMouseClicked
 

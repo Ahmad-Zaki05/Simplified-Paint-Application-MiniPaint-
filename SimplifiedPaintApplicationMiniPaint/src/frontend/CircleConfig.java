@@ -23,12 +23,12 @@ public class CircleConfig extends javax.swing.JFrame {
      */
     
     DrawingEngine engine;
-    java.awt.Graphics canvas;
+    java.awt.Canvas canvas;
     Circle circle;
     JComboBox <String> comboBox;
    
     
-    public CircleConfig(DrawingEngine engine, java.awt.Graphics canvas, JComboBox <String> comboBox) {
+    public CircleConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
         initComponents();
         
         this.setVisible(true);
@@ -41,7 +41,26 @@ public class CircleConfig extends javax.swing.JFrame {
         this.comboBox = comboBox;
         
         this.xCoordinateField.setText("" + this.circle.getPosition().getX());
-        this.yCoordinateField.setText("" + this.circle.getPosition().getX());
+        this.yCoordinateField.setText("" + this.circle.getPosition().getY());
+        this.radiusField.setText("" + this.circle.getProperties().get("Radius"));
+        this.borderColorPanel.setBackground(this.circle.getColor());
+        this.fillColorPanel.setBackground(this.circle.getFillColor());
+    }
+    
+    public CircleConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox, Circle circle) {
+        initComponents();
+        
+        this.setVisible(true);
+        this.setTitle("Circle Configuration");
+        this.setLocationRelativeTo(null);
+        
+        this.engine = engine;
+        this.canvas = canvas;
+        this.circle = circle;
+        this.comboBox = comboBox;
+        
+        this.xCoordinateField.setText("" + this.circle.getPosition().getX());
+        this.yCoordinateField.setText("" + this.circle.getPosition().getY());
         this.radiusField.setText("" + this.circle.getProperties().get("Radius"));
         this.borderColorPanel.setBackground(this.circle.getColor());
         this.fillColorPanel.setBackground(this.circle.getFillColor());
@@ -233,7 +252,8 @@ public class CircleConfig extends javax.swing.JFrame {
         this.circle.setName("Circle " + (this.engine.getShapes().length + 1));
         this.comboBox.addItem(this.circle.getName());
         this.engine.addShape(this.circle);
-        this.engine.refresh(this.canvas);
+        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        this.engine.refresh(this.canvas.getGraphics());
         this.dispose();
     }//GEN-LAST:event_saveButtonMouseClicked
 

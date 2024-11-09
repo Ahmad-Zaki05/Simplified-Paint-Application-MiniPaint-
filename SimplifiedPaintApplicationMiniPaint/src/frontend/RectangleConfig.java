@@ -21,11 +21,11 @@ public class RectangleConfig extends javax.swing.JFrame {
      */
     
     DrawingEngine engine;
-    java.awt.Graphics canvas;
+    java.awt.Canvas canvas;
     Rectangle rectangle;
     JComboBox <String> comboBox;
     
-    public RectangleConfig(DrawingEngine engine, java.awt.Graphics canvas, JComboBox <String> comboBox) {
+    public RectangleConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
         initComponents();
         
         this.engine = engine;
@@ -38,7 +38,27 @@ public class RectangleConfig extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         this.xCoordinateField.setText("" + this.rectangle.getPosition().getX());
-        this.yCoordinateField.setText("" + this.rectangle.getPosition().getX());
+        this.yCoordinateField.setText("" + this.rectangle.getPosition().getY());
+        this.lengthField.setText("" + this.rectangle.getProperties().get("Length"));
+        this.widthField.setText("" + this.rectangle.getProperties().get("Width"));
+        this.fillColorPanel.setBackground(this.rectangle.getFillColor());
+        this.borderColorPanel.setBackground(this.rectangle.getColor());
+    }
+    
+    public RectangleConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox, Rectangle rectangle) {
+        initComponents();
+        
+        this.engine = engine;
+        this.canvas = canvas;
+        this.rectangle = rectangle;
+        this.comboBox = comboBox;
+        
+        this.setVisible(true);
+        this.setTitle("Rectangle Configuration");
+        this.setLocationRelativeTo(null);
+        
+        this.xCoordinateField.setText("" + this.rectangle.getPosition().getX());
+        this.yCoordinateField.setText("" + this.rectangle.getPosition().getY());
         this.lengthField.setText("" + this.rectangle.getProperties().get("Length"));
         this.widthField.setText("" + this.rectangle.getProperties().get("Width"));
         this.fillColorPanel.setBackground(this.rectangle.getFillColor());
@@ -252,7 +272,8 @@ public class RectangleConfig extends javax.swing.JFrame {
         this.rectangle.setName("Rectangle " + (this.engine.getShapes().length + 1));
         this.comboBox.addItem(this.rectangle.getName());
         this.engine.addShape(this.rectangle);
-        this.engine.refresh(this.canvas);
+        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        this.engine.refresh(this.canvas.getGraphics());
         this.dispose();
     }//GEN-LAST:event_saveButtonMouseClicked
 

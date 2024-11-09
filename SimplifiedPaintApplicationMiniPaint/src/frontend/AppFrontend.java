@@ -4,9 +4,13 @@
  */
 package frontend;
 
+import backend.Circle;
 import backend.DrawingEngine;
+import backend.LineSegment;
 import backend.MiniPaintEngine;
+import backend.Rectangle;
 import backend.Shape;
+import backend.Square;
 import java.awt.Dimension;
 
 /**
@@ -165,14 +169,27 @@ public class AppFrontend extends javax.swing.JFrame {
 
     private void colorizeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colorizeButtonMouseClicked
         String selectedShapeName = this.selectShapeComboBox.getItemAt(this.selectShapeComboBox.getSelectedIndex());
-        Shape [] shapes = this.engine.getShapes();
-        Shape selectedShape = null;
-        for (Shape shape : shapes) {
-            if (selectedShapeName.equals(shape.getName())) {
-                selectedShape = shape;
+        if (!selectedShapeName.equals("Choose the shape")) {
+            Shape [] shapes = this.engine.getShapes();
+            Shape selectedShape = null;
+            for (Shape shape : shapes) {
+                if (selectedShapeName.equals(shape.getName())) {
+                    selectedShape = shape;
+                }
+            }
+            if (selectedShape instanceof Circle) {
+                new CircleConfig(this.engine, this.canvas, this.selectShapeComboBox, (Circle) selectedShape);
+            }
+            else if (selectedShape instanceof Rectangle) {
+                new RectangleConfig(this.engine, this.canvas, this.selectShapeComboBox, (Rectangle) selectedShape);
+            }
+            else if (selectedShape instanceof Square) {
+                new SquareConfig(this.engine, this.canvas, this.selectShapeComboBox, (Square) selectedShape);
+            }
+            else {
+                new LineSegmentConfig(this.engine, this.canvas, this.selectShapeComboBox, (LineSegment) selectedShape);
             }
         }
-        
     }//GEN-LAST:event_colorizeButtonMouseClicked
 
     private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
@@ -193,19 +210,19 @@ public class AppFrontend extends javax.swing.JFrame {
     }//GEN-LAST:event_deleteButtonMouseClicked
 
     private void circleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circleButtonMouseClicked
-        new CircleConfig(this.engine, this.canvas.getGraphics(), this.selectShapeComboBox);
+        new CircleConfig(this.engine, this.canvas, this.selectShapeComboBox);
     }//GEN-LAST:event_circleButtonMouseClicked
 
     private void lineSegmentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lineSegmentButtonMouseClicked
-        new LineSegmentConfig(this.engine, this.canvas.getGraphics(), this.selectShapeComboBox);
+        new LineSegmentConfig(this.engine, this.canvas, this.selectShapeComboBox);
     }//GEN-LAST:event_lineSegmentButtonMouseClicked
 
     private void rectangleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rectangleButtonMouseClicked
-        new RectangleConfig(this.engine, this.canvas.getGraphics(), this.selectShapeComboBox);
+        new RectangleConfig(this.engine, this.canvas, this.selectShapeComboBox);
     }//GEN-LAST:event_rectangleButtonMouseClicked
 
     private void squareButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_squareButtonMouseClicked
-        new SquareConfig(this.engine, this.canvas.getGraphics(), this.selectShapeComboBox);
+        new SquareConfig(this.engine, this.canvas, this.selectShapeComboBox);
     }//GEN-LAST:event_squareButtonMouseClicked
 
     /**

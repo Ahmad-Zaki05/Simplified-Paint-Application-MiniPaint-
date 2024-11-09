@@ -21,11 +21,11 @@ public class SquareConfig extends javax.swing.JFrame {
      */
     
     DrawingEngine engine;
-    java.awt.Graphics canvas;
+    java.awt.Canvas canvas;
     Square square;
     JComboBox <String> comboBox;
     
-    public SquareConfig(DrawingEngine engine, java.awt.Graphics canvas, JComboBox <String> comboBox) {
+    public SquareConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
         initComponents();
         
         this.engine = engine;
@@ -38,7 +38,26 @@ public class SquareConfig extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         this.xCoordinateField.setText("" + this.square.getPosition().getX());
-        this.yCoordinateField.setText("" + this.square.getPosition().getX());
+        this.yCoordinateField.setText("" + this.square.getPosition().getY());
+        this.lengthField.setText("" + this.square.getProperties().get("Length"));
+        this.fillColorPanel.setBackground(this.square.getFillColor());
+        this.borderColorPanel.setBackground(this.square.getColor());
+    }
+    
+    public SquareConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox, Square square) {
+        initComponents();
+        
+        this.engine = engine;
+        this.canvas = canvas;
+        this.square = square;
+        this.comboBox = comboBox;
+        
+        this.setVisible(true);
+        this.setTitle("Square Configuration");
+        this.setLocationRelativeTo(null);
+        
+        this.xCoordinateField.setText("" + this.square.getPosition().getX());
+        this.yCoordinateField.setText("" + this.square.getPosition().getY());
         this.lengthField.setText("" + this.square.getProperties().get("Length"));
         this.fillColorPanel.setBackground(this.square.getFillColor());
         this.borderColorPanel.setBackground(this.square.getColor());
@@ -235,7 +254,8 @@ public class SquareConfig extends javax.swing.JFrame {
         this.square.setName("Square " + (this.engine.getShapes().length + 1));
         this.comboBox.addItem(this.square.getName());
         this.engine.addShape(this.square);
-        this.engine.refresh(this.canvas);
+        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        this.engine.refresh(this.canvas.getGraphics());
         this.dispose();
     }//GEN-LAST:event_saveButtonMouseClicked
 
