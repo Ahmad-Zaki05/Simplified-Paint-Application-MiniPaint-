@@ -24,6 +24,7 @@ public class RectangleConfig extends javax.swing.JFrame {
     java.awt.Canvas canvas;
     Rectangle rectangle;
     JComboBox <String> comboBox;
+    boolean newShape;
     
     public RectangleConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
         initComponents();
@@ -32,6 +33,7 @@ public class RectangleConfig extends javax.swing.JFrame {
         this.canvas = canvas;
         this.rectangle = new Rectangle();
         this.comboBox = comboBox;
+        this.newShape = true;
         
         this.setVisible(true);
         this.setTitle("Rectangle Configuration");
@@ -52,6 +54,7 @@ public class RectangleConfig extends javax.swing.JFrame {
         this.canvas = canvas;
         this.rectangle = rectangle;
         this.comboBox = comboBox;
+        this.newShape = false;
         
         this.setVisible(true);
         this.setTitle("Rectangle Configuration");
@@ -269,9 +272,11 @@ public class RectangleConfig extends javax.swing.JFrame {
         this.rectangle.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
         this.rectangle.getProperties().put("Length", Double.parseDouble(this.lengthField.getText()));
         this.rectangle.getProperties().put("Width", Double.parseDouble(this.widthField.getText()));
-        this.rectangle.setName("Rectangle " + (this.engine.getShapes().length + 1));
-        this.comboBox.addItem(this.rectangle.getName());
-        this.engine.addShape(this.rectangle);
+        if (this.newShape) {
+            this.rectangle.setName("Rectangle " + (this.engine.getShapes().length + 1));
+            this.comboBox.addItem(this.rectangle.getName());
+            this.engine.addShape(this.rectangle);
+        }
         canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         this.engine.refresh(this.canvas.getGraphics());
         this.dispose();

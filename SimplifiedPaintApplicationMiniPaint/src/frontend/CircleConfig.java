@@ -26,6 +26,7 @@ public class CircleConfig extends javax.swing.JFrame {
     java.awt.Canvas canvas;
     Circle circle;
     JComboBox <String> comboBox;
+    boolean newShape;
    
     
     public CircleConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
@@ -39,6 +40,7 @@ public class CircleConfig extends javax.swing.JFrame {
         this.canvas = canvas;
         this.circle = new Circle();
         this.comboBox = comboBox;
+        this.newShape = true;
         
         this.xCoordinateField.setText("" + this.circle.getPosition().getX());
         this.yCoordinateField.setText("" + this.circle.getPosition().getY());
@@ -58,6 +60,7 @@ public class CircleConfig extends javax.swing.JFrame {
         this.canvas = canvas;
         this.circle = circle;
         this.comboBox = comboBox;
+        this.newShape = false;
         
         this.xCoordinateField.setText("" + this.circle.getPosition().getX());
         this.yCoordinateField.setText("" + this.circle.getPosition().getY());
@@ -249,9 +252,11 @@ public class CircleConfig extends javax.swing.JFrame {
         this.circle.setFillColor(this.fillColorPanel.getBackground());
         this.circle.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
         this.circle.getProperties().put("Radius", Double.parseDouble(this.radiusField.getText()));
-        this.circle.setName("Circle " + (this.engine.getShapes().length + 1));
-        this.comboBox.addItem(this.circle.getName());
-        this.engine.addShape(this.circle);
+        if (this.newShape) {
+            this.circle.setName("Circle " + (this.engine.getShapes().length + 1));
+            this.comboBox.addItem(this.circle.getName());
+            this.engine.addShape(this.circle);
+        }
         canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         this.engine.refresh(this.canvas.getGraphics());
         this.dispose();

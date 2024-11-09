@@ -24,6 +24,7 @@ public class LineSegmentConfig extends javax.swing.JFrame {
     java.awt.Canvas canvas;
     LineSegment lineSegment;
     JComboBox <String> comboBox;
+    boolean newShape;
     
     public LineSegmentConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
         initComponents();
@@ -32,6 +33,7 @@ public class LineSegmentConfig extends javax.swing.JFrame {
         this.canvas = canvas;
         this.lineSegment = new LineSegment();
         this.comboBox = comboBox;
+        this.newShape = true;
         
         this.setVisible(true);
         this.setTitle("Line Segment Configuration");
@@ -51,6 +53,7 @@ public class LineSegmentConfig extends javax.swing.JFrame {
         this.canvas = canvas;
         this.lineSegment = lineSegment;
         this.comboBox = comboBox;
+        this.newShape = false;
         
         this.setVisible(true);
         this.setTitle("Line Segment Configuration");
@@ -226,9 +229,11 @@ public class LineSegmentConfig extends javax.swing.JFrame {
         this.lineSegment.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
         this.lineSegment.getProperties().put("Length", Double.parseDouble(this.lengthField.getText()));
         this.lineSegment.getProperties().put("Angle", Double.parseDouble(this.angleField.getText()));
-        this.lineSegment.setName("Line " + (this.engine.getShapes().length + 1));
-        this.comboBox.addItem(this.lineSegment.getName());
-        this.engine.addShape(this.lineSegment);
+        if (this.newShape) {
+            this.lineSegment.setName("Line " + (this.engine.getShapes().length + 1));
+            this.comboBox.addItem(this.lineSegment.getName());
+            this.engine.addShape(this.lineSegment);
+        }
         canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         this.engine.refresh(this.canvas.getGraphics());
         this.dispose();

@@ -24,6 +24,7 @@ public class SquareConfig extends javax.swing.JFrame {
     java.awt.Canvas canvas;
     Square square;
     JComboBox <String> comboBox;
+    boolean newShape;
     
     public SquareConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
         initComponents();
@@ -32,6 +33,7 @@ public class SquareConfig extends javax.swing.JFrame {
         this.canvas = canvas;
         this.square = new Square();
         this.comboBox = comboBox;
+        this.newShape = true;
         
         this.setVisible(true);
         this.setTitle("Square Configuration");
@@ -51,6 +53,7 @@ public class SquareConfig extends javax.swing.JFrame {
         this.canvas = canvas;
         this.square = square;
         this.comboBox = comboBox;
+        this.newShape = false;
         
         this.setVisible(true);
         this.setTitle("Square Configuration");
@@ -251,9 +254,11 @@ public class SquareConfig extends javax.swing.JFrame {
         this.square.setColor(this.borderColorPanel.getBackground());
         this.square.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
         this.square.getProperties().put("Length", Double.parseDouble(this.lengthField.getText()));
-        this.square.setName("Square " + (this.engine.getShapes().length + 1));
-        this.comboBox.addItem(this.square.getName());
-        this.engine.addShape(this.square);
+        if (this.newShape) {
+            this.square.setName("Square " + (this.engine.getShapes().length + 1));
+            this.comboBox.addItem(this.square.getName());
+            this.engine.addShape(this.square);
+        }
         canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         this.engine.refresh(this.canvas.getGraphics());
         this.dispose();
