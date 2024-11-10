@@ -221,7 +221,8 @@ public class LineSegmentConfig extends javax.swing.JFrame {
 
     private void changeFillColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeFillColorButtonMouseClicked
         Color color = JColorChooser.showDialog(this, "Choose Fill Color", this.lineSegment.getFillColor());
-        this.fillColorPanel.setBackground(color);
+        if (color != null)
+            this.fillColorPanel.setBackground(color);
     }//GEN-LAST:event_changeFillColorButtonMouseClicked
 
     private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseClicked
@@ -230,9 +231,9 @@ public class LineSegmentConfig extends javax.swing.JFrame {
         this.lineSegment.getProperties().put("Length", Double.parseDouble(this.lengthField.getText()));
         this.lineSegment.getProperties().put("Angle", Double.parseDouble(this.angleField.getText()));
         if (this.newShape) {
-            this.lineSegment.setName("Line " + (this.engine.getShapes().length + 1));
-            this.comboBox.addItem(this.lineSegment.getName());
+//            this.lineSegment.setName("Line " + (this.engine.getShapes().length + 1));
             this.engine.addShape(this.lineSegment);
+            this.comboBox.addItem(this.lineSegment.getName());
         }
         canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         this.engine.refresh(this.canvas.getGraphics());

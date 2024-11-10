@@ -263,7 +263,8 @@ public class RectangleConfig extends javax.swing.JFrame {
 
     private void changeFillColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeFillColorButtonMouseClicked
         Color color = JColorChooser.showDialog(this, "Choose Fill Color", this.rectangle.getFillColor());
-        this.fillColorPanel.setBackground(color);
+        if (color != null)
+            this.fillColorPanel.setBackground(color);
     }//GEN-LAST:event_changeFillColorButtonMouseClicked
 
     private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseClicked
@@ -273,9 +274,9 @@ public class RectangleConfig extends javax.swing.JFrame {
         this.rectangle.getProperties().put("Length", Double.parseDouble(this.lengthField.getText()));
         this.rectangle.getProperties().put("Width", Double.parseDouble(this.widthField.getText()));
         if (this.newShape) {
-            this.rectangle.setName("Rectangle " + (this.engine.getShapes().length + 1));
-            this.comboBox.addItem(this.rectangle.getName());
+//            this.rectangle.setName("Rectangle " + (this.engine.getShapes().length + 1));
             this.engine.addShape(this.rectangle);
+            this.comboBox.addItem(this.rectangle.getName());
         }
         canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         this.engine.refresh(this.canvas.getGraphics());
@@ -284,7 +285,8 @@ public class RectangleConfig extends javax.swing.JFrame {
 
     private void changeBorderColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeBorderColorButtonMouseClicked
         Color color = JColorChooser.showDialog(this, "Choose Border Color", this.rectangle.getColor());
-        this.borderColorPanel.setBackground(color);
+        if (color != null)
+            this.borderColorPanel.setBackground(color);
     }//GEN-LAST:event_changeBorderColorButtonMouseClicked
 
     /**

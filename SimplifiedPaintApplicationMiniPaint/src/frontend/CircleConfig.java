@@ -253,9 +253,9 @@ public class CircleConfig extends javax.swing.JFrame {
         this.circle.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
         this.circle.getProperties().put("Radius", Double.parseDouble(this.radiusField.getText()));
         if (this.newShape) {
-            this.circle.setName("Circle " + (this.engine.getShapes().length + 1));
-            this.comboBox.addItem(this.circle.getName());
+//            this.circle.setName("Circle " + (this.engine.getShapes().length + 1));
             this.engine.addShape(this.circle);
+            this.comboBox.addItem(this.circle.getName());
         }
         canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         this.engine.refresh(this.canvas.getGraphics());
@@ -264,12 +264,14 @@ public class CircleConfig extends javax.swing.JFrame {
 
     private void changeBorderColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeBorderColorButtonMouseClicked
         Color color = JColorChooser.showDialog(this, "Choose Border Color", this.circle.getColor());
-        this.borderColorPanel.setBackground(color);
+        if (color != null)
+            this.borderColorPanel.setBackground(color);
     }//GEN-LAST:event_changeBorderColorButtonMouseClicked
 
     private void changeFillColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeFillColorButtonMouseClicked
         Color color = JColorChooser.showDialog(this, "Choose Fill Color", this.circle.getFillColor());
-        this.fillColorPanel.setBackground(color);
+        if (color != null)
+            this.fillColorPanel.setBackground(color);
     }//GEN-LAST:event_changeFillColorButtonMouseClicked
 
     /**

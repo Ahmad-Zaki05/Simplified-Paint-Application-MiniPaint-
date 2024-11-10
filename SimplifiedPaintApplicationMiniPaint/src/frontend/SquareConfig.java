@@ -246,7 +246,8 @@ public class SquareConfig extends javax.swing.JFrame {
 
     private void changeFillColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeFillColorButtonMouseClicked
         Color color = JColorChooser.showDialog(this, "Choose Fill Color", this.square.getFillColor());
-        this.fillColorPanel.setBackground(color);
+        if (color != null)
+            this.fillColorPanel.setBackground(color);
     }//GEN-LAST:event_changeFillColorButtonMouseClicked
 
     private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseClicked
@@ -255,9 +256,9 @@ public class SquareConfig extends javax.swing.JFrame {
         this.square.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
         this.square.getProperties().put("Length", Double.parseDouble(this.lengthField.getText()));
         if (this.newShape) {
-            this.square.setName("Square " + (this.engine.getShapes().length + 1));
-            this.comboBox.addItem(this.square.getName());
+//            this.square.setName("Square " + (this.engine.getShapes().length + 1));
             this.engine.addShape(this.square);
+            this.comboBox.addItem(this.square.getName());
         }
         canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         this.engine.refresh(this.canvas.getGraphics());
@@ -266,7 +267,8 @@ public class SquareConfig extends javax.swing.JFrame {
 
     private void changeBorderColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeBorderColorButtonMouseClicked
         Color color = JColorChooser.showDialog(this, "Choose Border Color", this.square.getColor());
-        this.borderColorPanel.setBackground(color);
+        if (color != null)
+            this.borderColorPanel.setBackground(color);
     }//GEN-LAST:event_changeBorderColorButtonMouseClicked
 
     /**
