@@ -22,11 +22,11 @@ public class CircleConfig extends javax.swing.JFrame {
      * Creates new form CircleConfig
      */
     
-    DrawingEngine engine;
-    java.awt.Canvas canvas;
-    Circle circle;
-    JComboBox <String> comboBox;
-    boolean newShape;
+    private DrawingEngine engine;
+    private java.awt.Canvas canvas;
+    private Circle circle;
+    private JComboBox <String> comboBox;
+    private boolean newShape;
    
     
     public CircleConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {

@@ -20,11 +20,11 @@ public class RectangleConfig extends javax.swing.JFrame {
      * Creates new form RectangleConfig
      */
     
-    DrawingEngine engine;
-    java.awt.Canvas canvas;
-    Rectangle rectangle;
-    JComboBox <String> comboBox;
-    boolean newShape;
+    private DrawingEngine engine;
+    private java.awt.Canvas canvas;
+    private Rectangle rectangle;
+    private JComboBox <String> comboBox;
+    private boolean newShape;
     
     public RectangleConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
         initComponents();

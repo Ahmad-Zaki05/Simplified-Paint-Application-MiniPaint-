@@ -20,11 +20,11 @@ public class SquareConfig extends javax.swing.JFrame {
      * Creates new form SquareConfig
      */
     
-    DrawingEngine engine;
-    java.awt.Canvas canvas;
-    Square square;
-    JComboBox <String> comboBox;
-    boolean newShape;
+    private DrawingEngine engine;
+    private java.awt.Canvas canvas;
+    private Square square;
+    private JComboBox <String> comboBox;
+    private boolean newShape;
     
     public SquareConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
         initComponents();

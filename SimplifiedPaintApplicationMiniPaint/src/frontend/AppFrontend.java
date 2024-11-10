@@ -23,7 +23,7 @@ public class AppFrontend extends javax.swing.JFrame {
      * Creates new form AppFrontend
      */
     
-    DrawingEngine engine;
+    private DrawingEngine engine;
     
     public AppFrontend() {
         initComponents();

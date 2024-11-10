@@ -20,11 +20,11 @@ public class LineSegmentConfig extends javax.swing.JFrame {
      * Creates new form LineSegmentConfig
      */
     
-    DrawingEngine engine;
-    java.awt.Canvas canvas;
-    LineSegment lineSegment;
-    JComboBox <String> comboBox;
-    boolean newShape;
+    private DrawingEngine engine;
+    private java.awt.Canvas canvas;
+    private LineSegment lineSegment;
+    private JComboBox <String> comboBox;
+    private boolean newShape;
     
     public LineSegmentConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
         initComponents();
