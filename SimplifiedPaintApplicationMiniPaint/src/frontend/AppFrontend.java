@@ -5,6 +5,7 @@
 package frontend;
 
 import backend.Circle;
+import backend.CustomPanel;
 import backend.DrawingEngine;
 import backend.LineSegment;
 import backend.MiniPaintEngine;
@@ -32,7 +33,9 @@ public class AppFrontend extends javax.swing.JFrame {
         this.setTitle("MiniPaint");
         this.setSize(new Dimension (1200, 700));
         this.setLocationRelativeTo(null);
-        this.engine = new MiniPaintEngine();
+        // this.engine = new MiniPaintEngine();
+        
+        this.canvas = new CustomPanel(engine);
         
         this.selectShapeComboBox.removeAllItems();
         this.selectShapeComboBox.addItem("Choose the shape");
@@ -55,7 +58,8 @@ public class AppFrontend extends javax.swing.JFrame {
         lineSegmentButton = new javax.swing.JButton();
         rectangleButton = new javax.swing.JButton();
         squareButton = new javax.swing.JButton();
-        canvas = new java.awt.Canvas();
+        this.engine = new MiniPaintEngine();
+        canvas = new CustomPanel (this.engine);
         saveButton = new javax.swing.JButton();
         loadButton = new javax.swing.JButton();
 
@@ -215,6 +219,7 @@ public class AppFrontend extends javax.swing.JFrame {
                 new LineSegmentConfig(this.engine, this.canvas, this.selectShapeComboBox, (LineSegment) selectedShape);
             }
         }
+        this.canvas.repaint();
     }//GEN-LAST:event_colorizeButtonMouseClicked
 
     private void deleteButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteButtonMouseClicked
@@ -229,25 +234,31 @@ public class AppFrontend extends javax.swing.JFrame {
             }
             this.engine.removeShape(selectedShape);
             this.selectShapeComboBox.removeItem(selectedShapeName);
-            canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-            this.engine.refresh(canvas.getGraphics());
+//            canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//            this.engine.refresh(canvas.getGraphics());
+            this.canvas.repaint();
         }
     }//GEN-LAST:event_deleteButtonMouseClicked
 
     private void circleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circleButtonMouseClicked
         new CircleConfig(this.engine, this.canvas, this.selectShapeComboBox);
+        System.out.println("in circle creation");
+        this.canvas.repaint();
     }//GEN-LAST:event_circleButtonMouseClicked
 
     private void lineSegmentButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lineSegmentButtonMouseClicked
         new LineSegmentConfig(this.engine, this.canvas, this.selectShapeComboBox);
+//        this.canvas.repaint();
     }//GEN-LAST:event_lineSegmentButtonMouseClicked
 
     private void rectangleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rectangleButtonMouseClicked
         new RectangleConfig(this.engine, this.canvas, this.selectShapeComboBox);
+//        this.canvas.repaint();
     }//GEN-LAST:event_rectangleButtonMouseClicked
 
     private void squareButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_squareButtonMouseClicked
         new SquareConfig(this.engine, this.canvas, this.selectShapeComboBox);
+//        this.canvas.repaint();
     }//GEN-LAST:event_squareButtonMouseClicked
 
     private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseClicked
@@ -256,7 +267,8 @@ public class AppFrontend extends javax.swing.JFrame {
 
     private void loadButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadButtonMouseClicked
         this.engine.readFromFile();
-        this.engine.refresh(this.canvas.getGraphics());
+//        this.engine.refresh(this.canvas.getGraphics());
+        this.canvas.repaint();
         Shape [] shapes = this.engine.getShapes();
         this.selectShapeComboBox.removeAllItems();
         this.selectShapeComboBox.addItem("Choose the shape");
@@ -301,7 +313,7 @@ public class AppFrontend extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Canvas canvas;
+    private CustomPanel canvas;
     private javax.swing.JButton circleButton;
     private javax.swing.JButton colorizeButton;
     private javax.swing.JButton deleteButton;

@@ -19,9 +19,10 @@ public class CustomPanel extends JPanel {
     }
     
     @Override
-    protected void paintComponent (Graphics canvas) {
-        super.paint(canvas);
+    public void paintComponent (Graphics canvas) {
+        super.paintComponent(canvas);
         engine.refresh(canvas);
+        System.out.println("here");
     }
     
 }

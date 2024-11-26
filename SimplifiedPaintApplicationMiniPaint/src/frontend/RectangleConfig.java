@@ -9,6 +9,7 @@ import backend.Rectangle;
 import java.awt.Color;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 
 /**
  *
@@ -21,12 +22,12 @@ public class RectangleConfig extends javax.swing.JFrame {
      */
     
     private DrawingEngine engine;
-    private java.awt.Canvas canvas;
     private Rectangle rectangle;
     private JComboBox <String> comboBox;
     private boolean newShape;
+    private JPanel canvas;
     
-    public RectangleConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
+    public RectangleConfig(DrawingEngine engine, JPanel canvas, JComboBox <String> comboBox) {
         initComponents();
         
         this.engine = engine;
@@ -47,7 +48,7 @@ public class RectangleConfig extends javax.swing.JFrame {
         this.borderColorPanel.setBackground(this.rectangle.getColor());
     }
     
-    public RectangleConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox, Rectangle rectangle) {
+    public RectangleConfig(DrawingEngine engine, JPanel canvas, JComboBox <String> comboBox, Rectangle rectangle) {
         initComponents();
         
         this.engine = engine;
@@ -278,8 +279,9 @@ public class RectangleConfig extends javax.swing.JFrame {
             this.engine.addShape(this.rectangle);
             this.comboBox.addItem(this.rectangle.getName());
         }
-        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        this.engine.refresh(this.canvas.getGraphics());
+//        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//        this.engine.refresh(this.canvas.getGraphics());
+        this.canvas.repaint();
         this.dispose();
     }//GEN-LAST:event_saveButtonMouseClicked
 

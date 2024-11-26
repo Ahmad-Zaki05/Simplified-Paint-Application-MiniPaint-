@@ -9,6 +9,7 @@ import backend.Square;
 import java.awt.Color;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 
 /**
  *
@@ -21,12 +22,12 @@ public class SquareConfig extends javax.swing.JFrame {
      */
     
     private DrawingEngine engine;
-    private java.awt.Canvas canvas;
     private Square square;
     private JComboBox <String> comboBox;
     private boolean newShape;
+    private JPanel canvas;
     
-    public SquareConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
+    public SquareConfig(DrawingEngine engine, JPanel canvas, JComboBox <String> comboBox) {
         initComponents();
         
         this.engine = engine;
@@ -46,7 +47,7 @@ public class SquareConfig extends javax.swing.JFrame {
         this.borderColorPanel.setBackground(this.square.getColor());
     }
     
-    public SquareConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox, Square square) {
+    public SquareConfig(DrawingEngine engine, JPanel canvas, JComboBox <String> comboBox, Square square) {
         initComponents();
         
         this.engine = engine;
@@ -260,8 +261,9 @@ public class SquareConfig extends javax.swing.JFrame {
             this.engine.addShape(this.square);
             this.comboBox.addItem(this.square.getName());
         }
-        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        this.engine.refresh(this.canvas.getGraphics());
+//        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//        this.engine.refresh(this.canvas.getGraphics());
+        this.canvas.repaint();
         this.dispose();
     }//GEN-LAST:event_saveButtonMouseClicked
 

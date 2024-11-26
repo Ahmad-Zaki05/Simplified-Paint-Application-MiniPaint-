@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
+import javax.swing.JPanel;
 
 /**
  *
@@ -23,13 +24,13 @@ public class CircleConfig extends javax.swing.JFrame {
      */
     
     private DrawingEngine engine;
-    private java.awt.Canvas canvas;
     private Circle circle;
     private JComboBox <String> comboBox;
     private boolean newShape;
+    private JPanel canvas;
    
     
-    public CircleConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox) {
+    public CircleConfig(DrawingEngine engine, JPanel canvas, JComboBox <String> comboBox) {
         initComponents();
         
         this.setVisible(true);
@@ -49,7 +50,7 @@ public class CircleConfig extends javax.swing.JFrame {
         this.fillColorPanel.setBackground(this.circle.getFillColor());
     }
     
-    public CircleConfig(DrawingEngine engine, java.awt.Canvas canvas, JComboBox <String> comboBox, Circle circle) {
+    public CircleConfig(DrawingEngine engine, JPanel canvas, JComboBox <String> comboBox, Circle circle) {
         initComponents();
         
         this.setVisible(true);
@@ -257,8 +258,9 @@ public class CircleConfig extends javax.swing.JFrame {
             this.engine.addShape(this.circle);
             this.comboBox.addItem(this.circle.getName());
         }
-        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        this.engine.refresh(this.canvas.getGraphics());
+//        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//        this.engine.refresh(this.canvas.getGraphics());
+        this.canvas.repaint();
         this.dispose();
     }//GEN-LAST:event_saveButtonMouseClicked
 
