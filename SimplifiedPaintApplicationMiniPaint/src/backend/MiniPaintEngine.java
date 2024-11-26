@@ -4,7 +4,12 @@
  */
 package backend;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  *
@@ -24,6 +29,7 @@ public class MiniPaintEngine implements DrawingEngine {
     
     @Override
     public void addShape (Shape shape) {
+//        if (shape.getName() == null) {
         if (shape instanceof Circle) {
             MiniPaintEngine.numOfCircles ++;
             shape.setName("Circle " + MiniPaintEngine.numOfCircles);
@@ -40,6 +46,7 @@ public class MiniPaintEngine implements DrawingEngine {
             MiniPaintEngine.numOfLineSegments ++;
             shape.setName("Line " + MiniPaintEngine.numOfLineSegments);
         }
+//        }
         this.shapes.add(shape);
     }
     
@@ -58,6 +65,52 @@ public class MiniPaintEngine implements DrawingEngine {
     public void refresh (java.awt.Graphics canvas) {
         for (Shape shape : shapes) {
             shape.draw(canvas);
+        }
+    }
+    
+    @Override
+    public void readFromFile () {
+        try {
+            File file = new File ("Shapes.txt");
+            Scanner sc = new Scanner(file);
+            String line;
+            
+            while (sc.hasNextLine()) {
+                line = sc.nextLine();
+                Shape shape;
+                if (line.contains("Circle")) {
+                    shape = new Circle();
+                }
+                else if (line.contains("Rectangle")) {
+                    shape = new Rectangle();
+                }
+                else if (line.contains("Square")) {
+                    shape = new Square();
+                }
+                else {
+                    shape = new LineSegment();
+                }
+                shape.setShape(line);
+                this.addShape(shape);
+            }
+            sc.close();
+        }
+        catch (FileNotFoundException e) {
+            
+        }
+    }
+    
+    @Override
+    public void saveToFile () {
+        try {
+            FileWriter fileWriter = new FileWriter ("Shapes.txt");
+            for (Shape shape : shapes) {
+                fileWriter.write(shape.toString());
+            }
+            fileWriter.close();
+        }
+        catch (IOException e) {
+            
         }
     }
 }

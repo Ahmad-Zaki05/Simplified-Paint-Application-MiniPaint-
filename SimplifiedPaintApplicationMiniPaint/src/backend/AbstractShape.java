@@ -74,4 +74,40 @@ public abstract class AbstractShape implements Shape {
     public String getName () {
         return this.name;
     }
+    
+    @Override
+    public String toString () {
+        StringBuilder s = new StringBuilder();
+        s.append (this.getName());                  // 0
+        s.append (",");
+        s.append (this.getColor().getRGB());        // 1
+        s.append (",");
+        s.append (this.getFillColor().getRGB());    // 2
+        s.append (",");
+        s.append (this.getPosition().getX());       // 3
+        s.append (",");
+        s.append (this.getPosition().getY());       // 4
+        s.append (",");
+        this.getProperties().forEach((key, value) -> {
+            s.append (key);
+            s.append (":");
+            s.append (value);
+            s.append (",");
+        });
+        s.append("\n");
+        return s.toString();
+    }
+    
+    @Override
+    public void setShape (String s) {
+        String [] shapeDetails = s.split(",", 0);
+        this.setName(shapeDetails[0]);
+        this.setColor(new Color(Integer.parseInt(shapeDetails[1])));
+        this.setFillColor(new Color(Integer.parseInt(shapeDetails[2])));
+        this.setPosition(Double.parseDouble(shapeDetails[3]), Double.parseDouble(shapeDetails[4]));
+        for (int i = 5; i < shapeDetails.length; i ++) {
+            String [] property = shapeDetails[i].split(":", 0);
+            this.getProperties().put(property [0], Double.parseDouble(property [1]));
+        }
+    }
 }

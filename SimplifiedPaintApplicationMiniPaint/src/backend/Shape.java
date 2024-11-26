@@ -26,5 +26,10 @@ public interface Shape {
     public void setName (String name);
     public String getName ();
     
+    @Override
+    public String toString ();
+    
+    public void setShape (String shapeString);
+    
     public void draw (java.awt.Graphics canvas);
 }

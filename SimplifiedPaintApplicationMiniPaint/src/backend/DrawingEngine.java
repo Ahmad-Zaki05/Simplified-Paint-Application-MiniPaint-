@@ -15,4 +15,7 @@ public interface DrawingEngine {
     public Shape[] getShapes ();
     
     public void refresh (java.awt.Graphics canvas);
+    
+    public void readFromFile ();
+    public void saveToFile ();
 }

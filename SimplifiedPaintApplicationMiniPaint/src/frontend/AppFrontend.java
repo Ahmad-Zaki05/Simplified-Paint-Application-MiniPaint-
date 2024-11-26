@@ -56,6 +56,8 @@ public class AppFrontend extends javax.swing.JFrame {
         rectangleButton = new javax.swing.JButton();
         squareButton = new javax.swing.JButton();
         canvas = new java.awt.Canvas();
+        saveButton = new javax.swing.JButton();
+        loadButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -66,7 +68,7 @@ public class AppFrontend extends javax.swing.JFrame {
         selectShapeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         selectShapeComboBox.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        colorizeButton.setText("Colorize");
+        colorizeButton.setText("Edit");
         colorizeButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 colorizeButtonMouseClicked(evt);
@@ -110,6 +112,20 @@ public class AppFrontend extends javax.swing.JFrame {
 
         canvas.setBackground(new java.awt.Color(255, 255, 255));
 
+        saveButton.setText("Save");
+        saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                saveButtonMouseClicked(evt);
+            }
+        });
+
+        loadButton.setText("Load");
+        loadButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                loadButtonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,7 +139,12 @@ public class AppFrontend extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(colorizeButton)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(deleteButton))))
+                            .addComponent(deleteButton)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(loadButton)
+                            .addComponent(saveButton))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(9, 9, 9)
@@ -153,7 +174,11 @@ public class AppFrontend extends javax.swing.JFrame {
                 .addComponent(canvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(105, 105, 105)
+                .addGap(35, 35, 35)
+                .addComponent(saveButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(loadButton)
+                .addGap(18, 18, 18)
                 .addComponent(selectShapeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -225,6 +250,21 @@ public class AppFrontend extends javax.swing.JFrame {
         new SquareConfig(this.engine, this.canvas, this.selectShapeComboBox);
     }//GEN-LAST:event_squareButtonMouseClicked
 
+    private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseClicked
+        this.engine.saveToFile();
+    }//GEN-LAST:event_saveButtonMouseClicked
+
+    private void loadButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loadButtonMouseClicked
+        this.engine.readFromFile();
+        this.engine.refresh(this.canvas.getGraphics());
+        Shape [] shapes = this.engine.getShapes();
+        this.selectShapeComboBox.removeAllItems();
+        this.selectShapeComboBox.addItem("Choose the shape");
+        for (Shape shape : shapes) {
+            this.selectShapeComboBox.addItem(shape.getName());
+        }
+    }//GEN-LAST:event_loadButtonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -266,7 +306,9 @@ public class AppFrontend extends javax.swing.JFrame {
     private javax.swing.JButton colorizeButton;
     private javax.swing.JButton deleteButton;
     private javax.swing.JButton lineSegmentButton;
+    private javax.swing.JButton loadButton;
     private javax.swing.JButton rectangleButton;
+    private javax.swing.JButton saveButton;
     private javax.swing.JComboBox<String> selectShapeComboBox;
     private javax.swing.JLabel selectShapeLabel;
     private javax.swing.JButton squareButton;
