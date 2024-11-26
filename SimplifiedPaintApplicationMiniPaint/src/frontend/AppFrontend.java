@@ -14,6 +14,8 @@ import backend.Shape;
 import backend.Square;
 import java.awt.Dimension;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author Zaki
@@ -34,8 +36,6 @@ public class AppFrontend extends javax.swing.JFrame {
         this.setSize(new Dimension (1200, 700));
         this.setLocationRelativeTo(null);
         // this.engine = new MiniPaintEngine();
-        
-        this.canvas = new CustomPanel(engine);
         
         this.selectShapeComboBox.removeAllItems();
         this.selectShapeComboBox.addItem("Choose the shape");
@@ -58,10 +58,10 @@ public class AppFrontend extends javax.swing.JFrame {
         lineSegmentButton = new javax.swing.JButton();
         rectangleButton = new javax.swing.JButton();
         squareButton = new javax.swing.JButton();
-        this.engine = new MiniPaintEngine();
-        canvas = new CustomPanel (this.engine);
         saveButton = new javax.swing.JButton();
         loadButton = new javax.swing.JButton();
+        this.engine = new MiniPaintEngine ();
+        canvas = new CustomPanel(this.engine);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -114,8 +114,6 @@ public class AppFrontend extends javax.swing.JFrame {
             }
         });
 
-        canvas.setBackground(new java.awt.Color(255, 255, 255));
-
         saveButton.setText("Save");
         saveButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -130,28 +128,41 @@ public class AppFrontend extends javax.swing.JFrame {
             }
         });
 
+        canvas.setBackground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout canvasLayout = new javax.swing.GroupLayout(canvas);
+        canvas.setLayout(canvasLayout);
+        canvasLayout.setHorizontalGroup(
+            canvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        canvasLayout.setVerticalGroup(
+            canvasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(loadButton)
+                            .addComponent(saveButton)))
                     .addComponent(selectShapeLabel)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(selectShapeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(colorizeButton)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(deleteButton)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(loadButton)
-                            .addComponent(saveButton))))
+                            .addComponent(deleteButton))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
                         .addComponent(circleButton)
                         .addGap(18, 18, 18)
                         .addComponent(lineSegmentButton)
@@ -159,11 +170,11 @@ public class AppFrontend extends javax.swing.JFrame {
                         .addComponent(rectangleButton)
                         .addGap(18, 18, 18)
                         .addComponent(squareButton)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(canvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addGap(9, 9, 9)
+                        .addComponent(canvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,11 +185,11 @@ public class AppFrontend extends javax.swing.JFrame {
                     .addComponent(rectangleButton)
                     .addComponent(squareButton)
                     .addComponent(circleButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(canvas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(20, 20, 20)
                 .addComponent(saveButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(loadButton)
@@ -190,7 +201,7 @@ public class AppFrontend extends javax.swing.JFrame {
                     .addComponent(deleteButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(selectShapeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -242,7 +253,7 @@ public class AppFrontend extends javax.swing.JFrame {
 
     private void circleButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_circleButtonMouseClicked
         new CircleConfig(this.engine, this.canvas, this.selectShapeComboBox);
-        System.out.println("in circle creation");
+//        System.out.println("in circle creation");
         this.canvas.repaint();
     }//GEN-LAST:event_circleButtonMouseClicked
 
@@ -313,7 +324,7 @@ public class AppFrontend extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private CustomPanel canvas;
+    private javax.swing.JPanel canvas;
     private javax.swing.JButton circleButton;
     private javax.swing.JButton colorizeButton;
     private javax.swing.JButton deleteButton;

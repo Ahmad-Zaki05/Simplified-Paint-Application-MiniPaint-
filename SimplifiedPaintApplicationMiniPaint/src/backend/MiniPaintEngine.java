@@ -63,6 +63,7 @@ public class MiniPaintEngine implements DrawingEngine {
     
     @Override
     public void refresh (java.awt.Graphics canvas) {
+//        System.out.println("in refresh");
         for (Shape shape : shapes) {
             shape.draw(canvas);
         }

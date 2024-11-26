@@ -22,7 +22,7 @@ public class CustomPanel extends JPanel {
     public void paintComponent (Graphics canvas) {
         super.paintComponent(canvas);
         engine.refresh(canvas);
-        System.out.println("here");
+//        System.out.println("here");
     }
     
 }
