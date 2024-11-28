@@ -75,7 +75,11 @@ public class MiniPaintEngine implements DrawingEngine {
             File file = new File ("Shapes.txt");
             Scanner sc = new Scanner(file);
             String line;
-            
+            this.shapes.clear();
+            MiniPaintEngine.numOfCircles = 0;
+            MiniPaintEngine.numOfLineSegments = 0;
+            MiniPaintEngine.numOfRectangles = 0;
+            MiniPaintEngine.numOfSquares = 0;
             while (sc.hasNextLine()) {
                 line = sc.nextLine();
                 Shape shape;
