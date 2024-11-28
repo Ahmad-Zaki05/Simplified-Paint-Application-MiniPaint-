@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -71,51 +72,89 @@ public class MiniPaintEngine implements DrawingEngine {
     
     @Override
     public void readFromFile () {
-        try {
-            File file = new File ("Shapes.txt");
-            Scanner sc = new Scanner(file);
-            String line;
-            this.shapes.clear();
-            MiniPaintEngine.numOfCircles = 0;
-            MiniPaintEngine.numOfLineSegments = 0;
-            MiniPaintEngine.numOfRectangles = 0;
-            MiniPaintEngine.numOfSquares = 0;
-            while (sc.hasNextLine()) {
-                line = sc.nextLine();
-                Shape shape;
-                if (line.contains("Circle")) {
-                    shape = new Circle();
-                }
-                else if (line.contains("Rectangle")) {
-                    shape = new Rectangle();
-                }
-                else if (line.contains("Square")) {
-                    shape = new Square();
-                }
-                else {
-                    shape = new LineSegment();
-                }
-                shape.setShape(line);
-                this.addShape(shape);
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            @Override
+            public boolean accept(java.io.File file) {
+                return file.isDirectory() || file.getName().toLowerCase().endsWith(".txt");
             }
-            sc.close();
-        }
-        catch (FileNotFoundException e) {
-            
+
+            @Override
+            public String getDescription() {
+                return "Text Files (*.txt)";
+            }
+        });
+        int choice = fileChooser.showOpenDialog(null);
+        
+        if (choice == JFileChooser.APPROVE_OPTION) {
+            try {
+                String path = fileChooser.getSelectedFile().getAbsolutePath();
+                File file = new File (path);
+                Scanner sc = new Scanner(file);
+                String line;
+                this.shapes.clear();
+                MiniPaintEngine.numOfCircles = 0;
+                MiniPaintEngine.numOfLineSegments = 0;
+                MiniPaintEngine.numOfRectangles = 0;
+                MiniPaintEngine.numOfSquares = 0;
+                while (sc.hasNextLine()) {
+                    line = sc.nextLine();
+                    Shape shape;
+                    if (line.contains("Circle")) {
+                        shape = new Circle();
+                    }
+                    else if (line.contains("Rectangle")) {
+                        shape = new Rectangle();
+                    }
+                    else if (line.contains("Square")) {
+                        shape = new Square();
+                    }
+                    else {
+                        shape = new LineSegment();
+                    }
+                    shape.setShape(line);
+                    this.addShape(shape);
+                }
+                sc.close();
+            }
+            catch (FileNotFoundException e) {
+
+            }
         }
     }
     
     @Override
     public void saveToFile () {
-        try {
-            FileWriter fileWriter = new FileWriter ("Shapes.txt");
-            for (Shape shape : shapes) {
-                fileWriter.write(shape.toString());
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            @Override
+            public boolean accept(java.io.File file) {
+                return file.isDirectory() || file.getName().toLowerCase().endsWith(".txt");
             }
-            fileWriter.close();
-        }
-        catch (IOException e) {
-            
+
+            @Override
+            public String getDescription() {
+                return "Text Files (*.txt)";
+            }
+        });
+        int choice = fileChooser.showSaveDialog(null);
+        
+        if (choice == JFileChooser.APPROVE_OPTION) {
+            try {
+                String path = fileChooser.getSelectedFile().getAbsolutePath();
+                if (path.endsWith(".txt")) {
+                    path += ".txt";
+                }
+                FileWriter fileWriter = new FileWriter (path);
+                
+                for (Shape shape : shapes) {
+                    fileWriter.write(shape.toString());
+                }
+                fileWriter.close();
+            }
+            catch (IOException e) {
+
+            }
         }
     }
 }
