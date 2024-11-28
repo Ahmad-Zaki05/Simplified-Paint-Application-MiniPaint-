@@ -142,7 +142,7 @@ public class MiniPaintEngine implements DrawingEngine {
         if (choice == JFileChooser.APPROVE_OPTION) {
             try {
                 String path = fileChooser.getSelectedFile().getAbsolutePath();
-                if (path.endsWith(".txt")) {
+                if (!path.endsWith(".txt")) {
                     path += ".txt";
                 }
                 FileWriter fileWriter = new FileWriter (path);
