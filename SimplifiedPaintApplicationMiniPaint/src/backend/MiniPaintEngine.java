@@ -73,7 +73,18 @@ public class MiniPaintEngine implements DrawingEngine {
     @Override
     public void readFromFile () {
         JFileChooser fileChooser = new JFileChooser();
-        int choice = fileChooser.showSaveDialog(null);
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            @Override
+            public boolean accept(java.io.File file) {
+                return file.isDirectory() || file.getName().toLowerCase().endsWith(".txt");
+            }
+
+            @Override
+            public String getDescription() {
+                return "Text Files (*.txt)";
+            }
+        });
+        int choice = fileChooser.showOpenDialog(null);
         
         if (choice == JFileChooser.APPROVE_OPTION) {
             try {
@@ -115,11 +126,25 @@ public class MiniPaintEngine implements DrawingEngine {
     @Override
     public void saveToFile () {
         JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setFileFilter(new javax.swing.filechooser.FileFilter() {
+            @Override
+            public boolean accept(java.io.File file) {
+                return file.isDirectory() || file.getName().toLowerCase().endsWith(".txt");
+            }
+
+            @Override
+            public String getDescription() {
+                return "Text Files (*.txt)";
+            }
+        });
         int choice = fileChooser.showSaveDialog(null);
         
         if (choice == JFileChooser.APPROVE_OPTION) {
             try {
                 String path = fileChooser.getSelectedFile().getAbsolutePath();
+                if (path.endsWith(".txt")) {
+                    path += ".txt";
+                }
                 FileWriter fileWriter = new FileWriter (path);
                 
                 for (Shape shape : shapes) {
