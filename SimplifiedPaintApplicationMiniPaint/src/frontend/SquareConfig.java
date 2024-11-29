@@ -9,6 +9,7 @@ import backend.Square;
 import java.awt.Color;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -252,19 +253,37 @@ public class SquareConfig extends javax.swing.JFrame {
     }//GEN-LAST:event_changeFillColorButtonMouseClicked
 
     private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseClicked
-        this.square.setFillColor(this.fillColorPanel.getBackground());
-        this.square.setColor(this.borderColorPanel.getBackground());
-        this.square.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
-        this.square.getProperties().put("Length", Double.parseDouble(this.lengthField.getText()));
-        if (this.newShape) {
-//            this.square.setName("Square " + (this.engine.getShapes().length + 1));
-            this.engine.addShape(this.square);
-            this.comboBox.addItem(this.square.getName());
+        try {
+            double x = Double.parseDouble(this.xCoordinateField.getText());
+            double y = Double.parseDouble(this.yCoordinateField.getText());
+            double l = Math.abs (Double.parseDouble(this.lengthField.getText()));
+            if (x < 0 || y < 0
+                || x > this.canvas.getWidth() 
+                || y > this.canvas.getHeight()) {
+                throw new IllegalArgumentException("Invalid Starting Point");
+            }
+            if (l + x > this.canvas.getWidth()
+                || l + y > this.canvas.getHeight()) {
+                throw new IllegalArgumentException("Size too large with the given starting point.\n"
+                                                   + "Change the starting point or the side length.");
+            }
+            this.square.setFillColor(this.fillColorPanel.getBackground());
+            this.square.setColor(this.borderColorPanel.getBackground());
+            this.square.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
+            this.square.getProperties().put("Length", Math.abs (Double.parseDouble(this.lengthField.getText())));
+            if (this.newShape) {
+//                this.square.setName("Square " + (this.engine.getShapes().length + 1));
+                this.engine.addShape(this.square);
+                this.comboBox.addItem(this.square.getName());
+            }
+//            canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//            this.engine.refresh(this.canvas.getGraphics());
+            this.canvas.repaint();
+            this.dispose();
         }
-//        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-//        this.engine.refresh(this.canvas.getGraphics());
-        this.canvas.repaint();
-        this.dispose();
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_saveButtonMouseClicked
 
     private void changeBorderColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeBorderColorButtonMouseClicked

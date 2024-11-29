@@ -9,6 +9,7 @@ import backend.LineSegment;
 import java.awt.Color;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -227,19 +228,40 @@ public class LineSegmentConfig extends javax.swing.JFrame {
     }//GEN-LAST:event_changeFillColorButtonMouseClicked
 
     private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseClicked
-        this.lineSegment.setFillColor(this.fillColorPanel.getBackground());
-        this.lineSegment.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
-        this.lineSegment.getProperties().put("Length", Double.parseDouble(this.lengthField.getText()));
-        this.lineSegment.getProperties().put("Angle", Double.parseDouble(this.angleField.getText()));
-        if (this.newShape) {
-//            this.lineSegment.setName("Line " + (this.engine.getShapes().length + 1));
-            this.engine.addShape(this.lineSegment);
-            this.comboBox.addItem(this.lineSegment.getName());
+        try {    
+            int x = (int) Double.parseDouble(this.xCoordinateField.getText());
+            int y = (int) Double.parseDouble(this.yCoordinateField.getText());
+            if (x < 0 || y < 0
+                || x > this.canvas.getWidth() 
+                || y > this.canvas.getHeight()) {
+                throw new IllegalArgumentException("Invalid Starting Point");
+            }
+            int angle = (int) Double.parseDouble(this.angleField.getText());
+            int l = (int) Math.abs (Double.parseDouble(this.lengthField.getText()));
+            int end_x = x + (int) (l * Math.cos(Math.toRadians(angle)));
+            int end_y = y + (int) (l * Math.sin(Math.toRadians(angle)));
+            if (end_x < 0 || end_y < 0
+                || end_x > this.canvas.getWidth() 
+                || end_y > this.canvas.getHeight()) {
+                throw new IllegalArgumentException("Invalid End Point.\nChange the angle or the length");
+            }
+            this.lineSegment.setFillColor(this.fillColorPanel.getBackground());
+            this.lineSegment.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
+            this.lineSegment.getProperties().put("Length", Math.abs (Double.parseDouble(this.lengthField.getText())));
+            this.lineSegment.getProperties().put("Angle", Double.parseDouble(this.angleField.getText()));
+            if (this.newShape) {
+//                this.lineSegment.setName("Line " + (this.engine.getShapes().length + 1));
+                this.engine.addShape(this.lineSegment);
+                this.comboBox.addItem(this.lineSegment.getName());
+            }
+//            canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//            this.engine.refresh(this.canvas.getGraphics());
+            this.canvas.repaint();
+            this.dispose();
         }
-//        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-//        this.engine.refresh(this.canvas.getGraphics());
-        this.canvas.repaint();
-        this.dispose();
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_saveButtonMouseClicked
 
     /**

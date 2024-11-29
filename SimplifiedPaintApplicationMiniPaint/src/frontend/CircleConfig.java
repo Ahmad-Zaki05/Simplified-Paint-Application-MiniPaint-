@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -249,19 +250,37 @@ public class CircleConfig extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseClicked
-        this.circle.setColor(this.borderColorPanel.getBackground());
-        this.circle.setFillColor(this.fillColorPanel.getBackground());
-        this.circle.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
-        this.circle.getProperties().put("Radius", Double.parseDouble(this.radiusField.getText()));
-        if (this.newShape) {
-//            this.circle.setName("Circle " + (this.engine.getShapes().length + 1));
-            this.engine.addShape(this.circle);
-            this.comboBox.addItem(this.circle.getName());
+        try {
+            int x = (int) Double.parseDouble(this.xCoordinateField.getText());
+            int y = (int) Double.parseDouble(this.yCoordinateField.getText());
+            if (x < 0 || y < 0
+                || x > this.canvas.getWidth() 
+                || y > this.canvas.getHeight()) {
+                throw new IllegalArgumentException("Invalid Starting Point");
+            }
+            double r = Math.abs (Double.parseDouble(this.radiusField.getText()));
+            if (r + x > this.canvas.getWidth()
+                || r + y > this.canvas.getHeight()) {
+                throw new IllegalArgumentException("Size too large with the given starting point.\n"
+                                                   + "Change the starting point or the radius length.");
+            }
+            this.circle.setColor(this.borderColorPanel.getBackground());
+            this.circle.setFillColor(this.fillColorPanel.getBackground());
+            this.circle.setPosition(Double.parseDouble(this.xCoordinateField.getText()), Double.parseDouble(this.yCoordinateField.getText()));
+            this.circle.getProperties().put("Radius", Math.abs(Double.parseDouble(this.radiusField.getText())));
+            if (this.newShape) {
+    //            this.circle.setName("Circle " + (this.engine.getShapes().length + 1));
+                this.engine.addShape(this.circle);
+                this.comboBox.addItem(this.circle.getName());
+            }
+    //        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    //        this.engine.refresh(this.canvas.getGraphics());
+            this.canvas.repaint();
+            this.dispose();
         }
-//        canvas.getGraphics().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-//        this.engine.refresh(this.canvas.getGraphics());
-        this.canvas.repaint();
-        this.dispose();
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_saveButtonMouseClicked
 
     private void changeBorderColorButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changeBorderColorButtonMouseClicked
